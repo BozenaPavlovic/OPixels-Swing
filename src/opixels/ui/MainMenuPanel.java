@@ -21,11 +21,7 @@ public class MainMenuPanel extends JPanel implements Screen {
 
         JPanel header = new JPanel(new BorderLayout());
         JLabel titleLabel = new JLabel("ODABERI IGRU", JLabel.CENTER);
-        JButton statsButton = new JButton("Stats");
-        statsButton.setPreferredSize(new Dimension(100, 30));
-        statsButton.addActionListener(e -> mainFrame.showScreen(ScreenNames.STATS));
         header.add(titleLabel, BorderLayout.CENTER);
-        header.add(statsButton, BorderLayout.EAST);
 
         JPanel grid = new JPanel(new GridLayout(4, 1, 0, 12));
         grid.add(createNavButton("Flip Coin", ScreenNames.FLIP_COIN));

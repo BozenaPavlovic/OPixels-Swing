@@ -75,10 +75,9 @@ public class MainFrame extends JFrame {
         navPanel.add(backButton);
         navPanel.add(statsButton);
 
-        JPanel userPanel = new JPanel();
-        userPanel.setLayout(new javax.swing.BoxLayout(userPanel, javax.swing.BoxLayout.Y_AXIS));
-        userLabel.setAlignmentX(JLabel.RIGHT_ALIGNMENT);
-        logoutButton.setAlignmentX(JButton.RIGHT_ALIGNMENT);
+        JPanel userPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT, 8, 4));
+        userPanel.setOpaque(false);
+        userLabel.setHorizontalAlignment(JLabel.RIGHT);
         logoutButton.addActionListener(e -> logout());
         userPanel.add(userLabel);
         userPanel.add(logoutButton);
