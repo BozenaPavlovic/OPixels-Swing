@@ -9,9 +9,6 @@ import opixels.ui.games.SpeedClickerPanel;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JToolBar;
 import java.awt.BorderLayout;
@@ -35,7 +32,7 @@ public class MainFrame extends JFrame {
         setSize(800, 550);
         setLocationRelativeTo(null);
 
-        setJMenuBar(createMenuBar());
+
         createToolBar();
 
         contentPanel.add(new LoginPanel(this), ScreenNames.LOGIN);
@@ -53,16 +50,6 @@ public class MainFrame extends JFrame {
         setContentPane(root);
 
         showScreen(ScreenNames.LOGIN);
-    }
-
-    private JMenuBar createMenuBar() {
-        JMenuBar menuBar = new JMenuBar();
-        JMenu fileMenu = new JMenu("File");
-        JMenuItem exitItem = new JMenuItem("Exit");
-        exitItem.addActionListener(e -> System.exit(0));
-        fileMenu.add(exitItem);
-        menuBar.add(fileMenu);
-        return menuBar;
     }
 
     private void createToolBar() {
