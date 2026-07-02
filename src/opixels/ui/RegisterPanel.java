@@ -14,8 +14,7 @@ import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
-import java.awt.BorderLayout;
-import java.awt.GridLayout;
+import java.awt.*;
 
 public class RegisterPanel extends JPanel implements Screen {
 
@@ -43,44 +42,109 @@ public class RegisterPanel extends JPanel implements Screen {
         genderGroup.add(maleButton);
         genderGroup.add(femaleButton);
 
-        JPanel form = new JPanel(new GridLayout(0, 1));
-        form.add(new JLabel("Registracija"));
-        form.add(new JLabel("Korisnicko ime:"));
-        form.add(usernameField);
-        form.add(new JLabel("Lozinka:"));
-        form.add(passwordField);
-        form.add(new JLabel("Spol:"));
-        JPanel genderPanel = new JPanel();
+        setLayout(new GridBagLayout());
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.insets = new Insets(6, 10, 6, 10);
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+
+        JLabel title = new JLabel("Registracija", JLabel.CENTER);
+        title.setFont(new Font("Arial", Font.BOLD, 24));
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.gridwidth = 2;
+        gbc.anchor = GridBagConstraints.CENTER;
+        add(title, gbc);
+
+        gbc.gridwidth = 1;
+        gbc.gridx = 0;
+        gbc.gridy = 1;
+        gbc.anchor = GridBagConstraints.WEST;
+        add(new JLabel("Korisničko ime:"), gbc);
+
+        gbc.gridx = 1;
+        gbc.anchor = GridBagConstraints.CENTER;
+        add(usernameField, gbc);
+
+        gbc.gridx = 0;
+        gbc.gridy = 2;
+        gbc.anchor = GridBagConstraints.WEST;
+        add(new JLabel("Lozinka:"), gbc);
+
+        gbc.gridx = 1;
+        gbc.anchor = GridBagConstraints.CENTER;
+        add(passwordField, gbc);
+
+        gbc.gridx = 0;
+        gbc.gridy = 3;
+        gbc.anchor = GridBagConstraints.WEST;
+        add(new JLabel("Spol:"), gbc);
+
+        JPanel genderPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 5, 0));
         genderPanel.add(maleButton);
         genderPanel.add(femaleButton);
-        form.add(genderPanel);
-        form.add(new JLabel("Omiljena igra:"));
-        form.add(favoriteGameBox);
-        form.add(new JLabel("Interesi:"));
-        JPanel interestsPanel = new JPanel();
+        gbc.gridx = 1;
+        gbc.anchor = GridBagConstraints.WEST;
+        add(genderPanel, gbc);
+
+        gbc.gridx = 0;
+        gbc.gridy = 4;
+        gbc.anchor = GridBagConstraints.WEST;
+        add(new JLabel("Omiljena igra:"), gbc);
+
+        gbc.gridx = 1;
+        gbc.anchor = GridBagConstraints.WEST;
+        add(favoriteGameBox, gbc);
+
+        gbc.gridx = 0;
+        gbc.gridy = 5;
+        gbc.anchor = GridBagConstraints.WEST;
+        add(new JLabel("Interesi:"), gbc);
+
+        JPanel interestsPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 5, 0));
         interestsPanel.add(casualBox);
         interestsPanel.add(competitiveBox);
         interestsPanel.add(bothBox);
-        form.add(interestsPanel);
-        form.add(new JLabel("O meni:"));
-        form.add(new JScrollPane(aboutArea));
+        gbc.gridx = 1;
+        gbc.anchor = GridBagConstraints.WEST;
+        add(interestsPanel, gbc);
 
-        JPanel buttons = new JPanel();
+        gbc.gridx = 0;
+        gbc.gridy = 6;
+        gbc.anchor = GridBagConstraints.WEST;
+        add(new JLabel("O meni:"), gbc);
+
+        JScrollPane scrollPane = new JScrollPane(aboutArea);
+        scrollPane.setPreferredSize(new Dimension(200, 80));
+        gbc.gridx = 1;
+        gbc.anchor = GridBagConstraints.WEST;
+        add(scrollPane, gbc);
+
         JButton registerButton = new JButton("REGISTRIRAJ");
         registerButton.addActionListener(e -> register());
+
         JButton backButton = new JButton("NATRAG");
         backButton.addActionListener(e -> mainFrame.showScreen(ScreenNames.LOGIN));
-        buttons.add(registerButton);
-        buttons.add(backButton);
 
-        setLayout(new BorderLayout());
-        add(form, BorderLayout.CENTER);
-        add(buttons, BorderLayout.SOUTH);
-        add(messageLabel, BorderLayout.NORTH);
+        JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 15, 0));
+        buttonPanel.add(registerButton);
+        buttonPanel.add(backButton);
+
+        gbc.gridx = 0;
+        gbc.gridy = 7;
+        gbc.gridwidth = 2;
+        gbc.anchor = GridBagConstraints.CENTER;
+        add(buttonPanel, gbc);
+
+        messageLabel.setHorizontalAlignment(JLabel.CENTER);
+        gbc.gridx = 0;
+        gbc.gridy = 8;
+        gbc.gridwidth = 2;
+        gbc.anchor = GridBagConstraints.CENTER;
+        add(messageLabel, gbc);
     }
 
     private void register() {
-        String gender = maleButton.isSelected() ? "Musko" : "Zensko";
+        String gender = maleButton.isSelected() ? "Muško" : "Žensko";
         String interests = buildInterests();
 
         User user = new User(

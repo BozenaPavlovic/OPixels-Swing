@@ -24,6 +24,7 @@ public class DataManager {
     private User currentUser;
 
     public DataManager() {
+
         loadAll();
     }
 

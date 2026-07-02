@@ -5,7 +5,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
-import java.awt.GridLayout;
+import java.awt.*;
 
 public class LoginPanel extends JPanel implements Screen {
 
@@ -16,24 +16,61 @@ public class LoginPanel extends JPanel implements Screen {
 
     public LoginPanel(MainFrame mainFrame) {
         this.mainFrame = mainFrame;
-        setLayout(new GridLayout(6, 1));
 
-        add(new JLabel("Prijava"));
-        add(new JLabel("Korisnicko ime:"));
-        add(usernameField);
-        add(new JLabel("Lozinka:"));
-        add(passwordField);
+        setLayout(new GridBagLayout());
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.insets = new Insets(8, 8, 8, 8);
+        gbc.fill = GridBagConstraints.HORIZONTAL;
 
-        JPanel buttons = new JPanel();
+        JLabel title = new JLabel("OPixels", JLabel.CENTER);
+        title.setFont(new Font("Arial", Font.BOLD, 28));
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.gridwidth = 2;
+        gbc.anchor = GridBagConstraints.CENTER;
+        add(title, gbc);
+
+        gbc.gridwidth = 1;
+        gbc.gridx = 0;
+        gbc.gridy = 1;
+        gbc.anchor = GridBagConstraints.WEST;
+        add(new JLabel("Korisničko ime:"), gbc);
+
+        gbc.gridx = 1;
+        gbc.anchor = GridBagConstraints.CENTER;
+        add(usernameField, gbc);
+
+        gbc.gridx = 0;
+        gbc.gridy = 2;
+        gbc.anchor = GridBagConstraints.WEST;
+        add(new JLabel("Lozinka:"), gbc);
+
+        gbc.gridx = 1;
+        gbc.anchor = GridBagConstraints.CENTER;
+        add(passwordField, gbc);
+
         JButton loginButton = new JButton("PRIJAVA");
         loginButton.addActionListener(e -> login());
+
         JButton registerButton = new JButton("REGISTRIRAJ");
         registerButton.addActionListener(e -> mainFrame.showScreen(ScreenNames.REGISTER));
-        buttons.add(loginButton);
-        buttons.add(registerButton);
 
-        add(buttons);
-        add(messageLabel);
+        JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 15, 0));
+        buttonPanel.add(loginButton);
+        buttonPanel.add(registerButton);
+
+        gbc.gridx = 0;
+        gbc.gridy = 3;
+        gbc.gridwidth = 2;
+        gbc.anchor = GridBagConstraints.CENTER;
+        add(buttonPanel, gbc);
+
+        messageLabel.setHorizontalAlignment(JLabel.CENTER);
+        gbc.gridx = 0;
+        gbc.gridy = 4;
+        gbc.gridwidth = 2;
+        gbc.anchor = GridBagConstraints.CENTER;
+        add(messageLabel, gbc);
     }
 
     private void login() {
@@ -45,7 +82,7 @@ public class LoginPanel extends JPanel implements Screen {
             passwordField.setText("");
             mainFrame.showScreen(ScreenNames.MAIN_MENU);
         } else {
-            messageLabel.setText("Pogresno korisnicko ime ili lozinka.");
+            messageLabel.setText("Pogrešno korisničko ime ili lozinka.");
         }
     }
 
