@@ -20,7 +20,7 @@ public class GuessNumberPanel extends JPanel implements Screen {
     private final MainFrame mainFrame;
     private final JTextArea resultArea = new JTextArea(10, 24);
     private final Random random = new Random();
-    private final JButton[] numberButtons = new JButton[10];
+    private final JButton[] numberButtons = new JButton[5];
 
     private int secretNumber;
     private boolean finished;
@@ -37,11 +37,11 @@ public class GuessNumberPanel extends JPanel implements Screen {
         startButton.addActionListener(e -> startRound());
 
         JPanel left = new JPanel(new GridLayout(6, 1, 0, 10));
-        left.add(new JLabel("Guess the Number"));
-        left.add(new JLabel("Odaberi broj (1-10):"));
+        left.add(new JLabel("Pogodi broj"));
+        left.add(new JLabel("Odaberi broj (1-5):"));
 
-        JPanel numberPanel = new JPanel(new GridLayout(2, 5, 5, 5));
-        for (int i = 0; i < 10; i++) {
+        JPanel numberPanel = new JPanel(new GridLayout(1, 5, 5, 5));
+        for (int i = 0; i < 5; i++) {
             int number = i + 1;
             numberButtons[i] = new JButton(String.valueOf(number));
             numberButtons[i].setPreferredSize(new Dimension(50, 40));
@@ -77,7 +77,7 @@ public class GuessNumberPanel extends JPanel implements Screen {
     }
 
     private void startRound() {
-        secretNumber = random.nextInt(10) + 1;
+        secretNumber = random.nextInt(5) + 1;
         finished = false;
         gameStarted = true;
 
@@ -85,7 +85,7 @@ public class GuessNumberPanel extends JPanel implements Screen {
             button.setEnabled(true);
         }
 
-        resultArea.setText("Pogodite broj od 1 do 10.\n\n"
+        resultArea.setText("Pogodite broj od 1 do 5.\n\n"
                 + "Racunalo:\n-\n\n"
                 + "Rezultat:\n-"
                 + "\n\nUkupno igara: " + totalAttempts
@@ -134,6 +134,5 @@ public class GuessNumberPanel extends JPanel implements Screen {
 
     @Override
     public void onShow() {
-        // Ne radimo ništa - brojači ostaju
     }
 }
