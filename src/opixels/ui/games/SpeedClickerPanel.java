@@ -29,7 +29,7 @@ public class SpeedClickerPanel extends JPanel implements Screen {
     private final JPanel redSquare = new JPanel();
     private final JLabel timerLabel = new JLabel("Vrijeme: " + GAME_SECONDS);
     private final JLabel clicksLabel = new JLabel("Klikovi: 0");
-    private final JTextArea resultArea = new JTextArea(8, 22);
+    private final JTextArea resultArea = new JTextArea(10, 22);
     private final Random random = new Random();
 
     private Timer gameTimer;
@@ -37,6 +37,8 @@ public class SpeedClickerPanel extends JPanel implements Screen {
     private int clicks;
     private boolean running;
     private boolean recorded;
+    private int totalAttempts;
+    private int wins;
 
     public SpeedClickerPanel(MainFrame mainFrame) {
         this.mainFrame = mainFrame;
@@ -59,7 +61,7 @@ public class SpeedClickerPanel extends JPanel implements Screen {
         startButton.setPreferredSize(BUTTON_SIZE);
         startButton.addActionListener(e -> startGame());
 
-        JPanel left = new JPanel(new GridLayout(5, 1, 0, 10));
+        JPanel left = new JPanel(new GridLayout(6, 1, 0, 10));
         left.add(new JLabel("Speed Clicker"));
         left.add(startButton);
         left.add(timerLabel);
@@ -69,7 +71,7 @@ public class SpeedClickerPanel extends JPanel implements Screen {
         resultArea.setEditable(false);
         resultArea.setLineWrap(true);
         resultArea.setWrapStyleWord(true);
-        resultArea.setText("Status:\nKliknite START");
+        resultArea.setText("Status:\nKliknite START\n\nUkupno igara: 0\nPobjede: 0");
 
         JPanel right = new JPanel(new BorderLayout());
         right.add(new JLabel("Rezultat"), BorderLayout.NORTH);
@@ -83,6 +85,9 @@ public class SpeedClickerPanel extends JPanel implements Screen {
         add(right, BorderLayout.EAST);
 
         gameTimer = new Timer(1000, e -> tick());
+
+        totalAttempts = 0;
+        wins = 0;
     }
 
     private void startGame() {
@@ -95,7 +100,7 @@ public class SpeedClickerPanel extends JPanel implements Screen {
         timeLeft = GAME_SECONDS;
         timerLabel.setText("Vrijeme: " + timeLeft);
         clicksLabel.setText("Klikovi: 0");
-        resultArea.setText("Status:\nKlikajte crveni kvadrat!");
+        resultArea.setText("Status:\nKlikajte crveni kvadrat!\n\nUkupno igara: " + totalAttempts + "\nPobjede: " + wins);
         moveSquare();
         gameTimer.start();
     }
@@ -115,7 +120,7 @@ public class SpeedClickerPanel extends JPanel implements Screen {
         clicks++;
         clicksLabel.setText("Klikovi: " + clicks);
         if (clicks >= TARGET_CLICKS) {
-            resultArea.setText("Status:\nPobjeda! 10 klikova.");
+            resultArea.setText("Status:\nPobjeda! 10 klikova.\n\nUkupno igara: " + totalAttempts + "\nPobjede: " + wins);
             endGame();
         } else {
             moveSquare();
@@ -134,10 +139,18 @@ public class SpeedClickerPanel extends JPanel implements Screen {
         gameTimer.stop();
         running = false;
         if (!recorded) {
+            totalAttempts++;
+            boolean win = clicks >= TARGET_CLICKS;
+            if (win) {
+                wins++;
+            }
             mainFrame.getDataManager().recordSpeedClicker(clicks);
             recorded = true;
-            if (clicks < TARGET_CLICKS) {
-                resultArea.setText("Status:\nKraj. Klikovi: " + clicks);
+
+            if (!win) {
+                resultArea.setText("Status:\nKraj. Klikovi: " + clicks + "\n\nUkupno igara: " + totalAttempts + "\nPobjede: " + wins);
+            } else {
+                resultArea.setText("Status:\nPobjeda! 10 klikova.\n\nUkupno igara: " + totalAttempts + "\nPobjede: " + wins);
             }
         }
     }
@@ -156,7 +169,7 @@ public class SpeedClickerPanel extends JPanel implements Screen {
         timeLeft = GAME_SECONDS;
         timerLabel.setText("Vrijeme: " + GAME_SECONDS);
         clicksLabel.setText("Klikovi: 0");
-        resultArea.setText("Status:\nKliknite START");
+        resultArea.setText("Status:\nKliknite START\n\nUkupno igara: " + totalAttempts + "\nPobjede: " + wins);
         redSquare.setLocation(10, 10);
     }
 }

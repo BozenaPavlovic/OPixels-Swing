@@ -21,8 +21,8 @@ public class RegisterPanel extends JPanel implements Screen {
     private final MainFrame mainFrame;
     private final JTextField usernameField = new JTextField(15);
     private final JPasswordField passwordField = new JPasswordField(15);
-    private final JRadioButton maleButton = new JRadioButton("Musko", true);
-    private final JRadioButton femaleButton = new JRadioButton("Zensko");
+    private final JRadioButton maleButton = new JRadioButton("Muško", true);
+    private final JRadioButton femaleButton = new JRadioButton("Žensko");
     private final JComboBox<String> favoriteGameBox = new JComboBox<>(new String[]{
             GameType.FLIP_COIN.getDisplayName(),
             GameType.SPEED_CLICKER.getDisplayName(),

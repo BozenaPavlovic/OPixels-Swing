@@ -19,15 +19,16 @@ public class FlipCoinPanel extends JPanel implements Screen {
     private static final Dimension BUTTON_SIZE = new Dimension(140, 36);
 
     private final MainFrame mainFrame;
-    private final JTextArea resultArea = new JTextArea(8, 22);
+    private final JTextArea resultArea = new JTextArea(10, 22);
     private final Random random = new Random();
-    private boolean played;
+    private int totalAttempts;
+    private int wins;
 
     public FlipCoinPanel(MainFrame mainFrame) {
         this.mainFrame = mainFrame;
         setLayout(new BorderLayout(16, 10));
 
-        JPanel left = new JPanel(new GridLayout(4, 1, 0, 10));
+        JPanel left = new JPanel(new GridLayout(5, 1, 0, 10));
         left.add(new JLabel("Flip Coin"));
         left.add(createChoiceButton("Glava", "Glava"));
         left.add(createChoiceButton("Pismo", "Pismo"));
@@ -36,7 +37,7 @@ public class FlipCoinPanel extends JPanel implements Screen {
         resultArea.setEditable(false);
         resultArea.setLineWrap(true);
         resultArea.setWrapStyleWord(true);
-        resultArea.setText("Rezultat bacanja:\n-\n\nStatus:\n-");
+        resultArea.setText("Rezultat bacanja:\n-\n\nStatus:\n-\n\nUkupno igara: 0\nPobjede: 0");
 
         JPanel right = new JPanel(new BorderLayout());
         right.add(new JLabel("Rezultat"), BorderLayout.NORTH);
@@ -57,14 +58,19 @@ public class FlipCoinPanel extends JPanel implements Screen {
         String flip = random.nextBoolean() ? "Glava" : "Pismo";
         boolean win = choice.equals(flip);
 
+        totalAttempts++;
+
+        if (win) {
+            wins++;
+        }
+
         resultArea.setText(
                 "Rezultat bacanja:\n" + flip + "\n\nStatus:\n" + (win ? "Pogodili ste!" : "Niste pogodili.")
+                        + "\n\nUkupno igara: " + totalAttempts
+                        + "\nPobjede: " + wins
         );
 
-        if (!played) {
-            mainFrame.getDataManager().recordFlipCoin(win);
-            played = true;
-        }
+        mainFrame.getDataManager().recordFlipCoin(win);
     }
 
     @Override
@@ -74,7 +80,6 @@ public class FlipCoinPanel extends JPanel implements Screen {
 
     @Override
     public void onShow() {
-        resultArea.setText("Rezultat bacanja:\n-\n\nStatus:\n-");
-        played = false;
+        resultArea.setText("Rezultat bacanja:\n-\n\nStatus:\n-\n\nUkupno igara: " + totalAttempts + "\nPobjede: " + wins);
     }
 }
