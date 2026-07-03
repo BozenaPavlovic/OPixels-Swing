@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="OPixels-Swing:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/OPixels_Swing_jar</output-path>
+    <root id="archive" name="OPixels-Swing.jar">
+      <element id="module-output" name="OPixels-Swing" />
+    </root>
+  </artifact>
+</component>

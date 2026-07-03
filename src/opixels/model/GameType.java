@@ -16,3 +16,8 @@ public enum GameType {
         return displayName;
     }
 }
+// enum (enumeration) je posebna vrsta klase koja sadrži fiksni popis konstanti (stvari koje se ne mijenjaju)
+// gotov popis fiksnih opcija koji sprječava greške u pisanju i osigurava da program koristi samo točno definirane igre
+
+// enum se korisit kao fiksni popis (npr. GameType.FLIP_COIN) kako bi se izbjehli
+// tipfeleri i omogućilo Javi da odmah upozori ako upišemo nepostojeću opciju
