@@ -1,6 +1,6 @@
 package opixels;
 
-import opixels.ui.MainFrame;
+import opixels.ui.core.MainFrame;
 
 import javax.swing.SwingUtilities;
 

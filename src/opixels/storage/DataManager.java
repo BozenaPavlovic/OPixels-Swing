@@ -14,9 +14,10 @@ import java.util.Map;
 
 public class DataManager {
 
-    private static final String USERS_FILE = "users.ser";
-    private static final String STATS_FILE = "stats.ser";
-    private static final String GLOBAL_FILE = "global.ser";
+    private static final String DATA_DIR = "DATA";
+    private static final String USERS_FILE = DATA_DIR + "/users.ser";
+    private static final String STATS_FILE = DATA_DIR + "/stats.ser";
+    private static final String GLOBAL_FILE = DATA_DIR + "/global.ser";
 
     private final Map<String, User> users = new HashMap<>();
     private final Map<String, UserStats> userStats = new HashMap<>();
@@ -24,8 +25,19 @@ public class DataManager {
     private User currentUser;
 
     public DataManager() {
-
+        ensureDataDirExists();
         loadAll();
+    }
+
+    private void ensureDataDirExists() {
+        java.nio.file.Path dataPath = java.nio.file.Paths.get(DATA_DIR);
+        if (!java.nio.file.Files.exists(dataPath)) {
+            try {
+                java.nio.file.Files.createDirectories(dataPath);
+            } catch (IOException e) {
+                System.err.println("Greska pri kreiranju DATA direktorija: " + e.getMessage());
+            }
+        }
     }
 
     @SuppressWarnings("unchecked")
