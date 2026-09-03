@@ -21,3 +21,7 @@ public enum GameType {
 
 // enum se korisit kao fiksni popis (npr. GameType.FLIP_COIN) kako bi se izbjehli
 // tipfeleri i omogućilo Javi da odmah upozori ako upišemo nepostojeću opciju
+
+//Upišeš je bilo gdje u kodu dok programiraš (npr. unutar if provjere ili dok postavljaš aktivnu igru)
+//Ako umjesto GameType.FLIP_COIN slučajno utipkaš GameType.FLIP_COJN,
+// Java će odmah podvući kod crvenom bojom i javiti grešku prije nego uopće pokreneš program
