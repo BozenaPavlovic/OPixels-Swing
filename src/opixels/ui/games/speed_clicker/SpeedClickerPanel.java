@@ -4,6 +4,7 @@ import opixels.ui.core.MainFrame;
 import opixels.ui.core.Screen;
 import opixels.ui.core.ScreenNames;
 import opixels.ui.games.listeners.SpeedClickerListener;
+import opixels.ui.games.events.SpeedClickerEvent;
 
 import javax.swing.JPanel;
 import java.awt.BorderLayout;

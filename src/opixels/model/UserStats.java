@@ -19,6 +19,8 @@ public class UserStats implements Serializable {
 
     private int speedClickerGames;
     private int speedClickerBestScore;
+    private int speedClickerWins;
+    private int speedClickerLosses;
 
     private int rpsGames;
     private int rpsWins;
@@ -53,9 +55,11 @@ public class UserStats implements Serializable {
         }
         if (clicks >= 10) {
             totalWins++;
+            speedClickerWins++;
             playHistory.add("Speed Clicker - Pobjeda (" + clicks + " klikova)");
         } else {
             totalLosses++;
+            speedClickerLosses++;
             playHistory.add("Speed Clicker - Poraz (" + clicks + " klikova)");
         }
     }
@@ -102,6 +106,8 @@ public class UserStats implements Serializable {
                 .append(", Win: ").append(flipCoinWins)
                 .append(", Loss: ").append(flipCoinLosses).append("\n");
         sb.append("Speed Clicker - Games: ").append(speedClickerGames)
+                .append(", Win: ").append(speedClickerWins)
+                .append(", Loss: ").append(speedClickerLosses)
                 .append(", Best Score: ").append(speedClickerBestScore).append("\n");
         sb.append("Rock Paper Scissors - Games: ").append(rpsGames)
                 .append(", Win: ").append(rpsWins)
