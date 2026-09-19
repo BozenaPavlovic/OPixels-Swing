@@ -46,6 +46,7 @@ public class FlipCoinPanel extends JPanel implements Screen, FlipCoinListener {
             wins++;
         }
 
+
         rightPanel.displayResult(flip, win, totalAttempts, wins);
         mainFrame.getDataManager().recordFlipCoin(win);
     }
