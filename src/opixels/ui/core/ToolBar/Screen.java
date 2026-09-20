@@ -1,4 +1,4 @@
-package opixels.ui;
+package opixels.ui.core.ToolBar;
 
 public interface Screen {
 
