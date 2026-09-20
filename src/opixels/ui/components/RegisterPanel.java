@@ -21,6 +21,7 @@ import java.awt.*;
 
 public class RegisterPanel extends JPanel implements Screen {
 
+    // Pohrana reference na MainFrame za navigaciju i pristup DataManager-u
     private final MainFrame mainFrame;
     private final JTextField usernameField = new JTextField(15);
     private final JPasswordField passwordField = new JPasswordField(15);
@@ -39,8 +40,9 @@ public class RegisterPanel extends JPanel implements Screen {
     private final JLabel messageLabel = new JLabel(" ");
 
     public RegisterPanel(MainFrame mainFrame) {
-        this.mainFrame = mainFrame;
+        this.mainFrame = mainFrame; // Spremanje reference na MainFrame
 
+        // ButtonGroup osigurava međusobno isključivanje (samo jedno dugme može biti označeno)
         ButtonGroup genderGroup = new ButtonGroup();
         genderGroup.add(maleButton);
         genderGroup.add(femaleButton);
@@ -122,9 +124,11 @@ public class RegisterPanel extends JPanel implements Screen {
         gbc.anchor = GridBagConstraints.WEST;
         add(scrollPane, gbc);
 
+        // UVJETNA NAVIGACIJA: Poziva register() metodu za obradu i provjeru podataka
         JButton registerButton = new JButton("REGISTRIRAJ");
         registerButton.addActionListener(e -> register());
 
+        // BEZUVJETNA NAVIGACIJA: Odmah prebacuje ekran bez ikakvih provjera
         JButton backButton = new JButton("NATRAG");
         backButton.addActionListener(e -> mainFrame.showScreen(ScreenNames.LOGIN));
 
@@ -146,10 +150,12 @@ public class RegisterPanel extends JPanel implements Screen {
         add(messageLabel, gbc);
     }
 
+    // LOGIKA REGISTRACIJE: Pakira unose iz forme u User objekt i šalje ih u DataManager
     private void register() {
         String gender = maleButton.isSelected() ? "Muško" : "Žensko";
         String interests = buildInterests();
 
+        // 1. Instanciranje novog User modela s podacima s ekrana
         User user = new User(
                 usernameField.getText().trim(),
                 new String(passwordField.getPassword()),
@@ -159,15 +165,17 @@ public class RegisterPanel extends JPanel implements Screen {
                 aboutArea.getText().trim()
         );
 
+        // 2. Slanje objekta u DataManager (vraća null ako je uspješno, ili String s greškom)
         String error = mainFrame.getDataManager().register(user);
         if (error == null) {
             messageLabel.setText("Registracija uspjesna. Mozete se prijaviti.");
-            mainFrame.showScreen(ScreenNames.LOGIN);
+            mainFrame.showScreen(ScreenNames.LOGIN); // Prebacuje na Login samo ako nema greške
         } else {
-            messageLabel.setText(error);
+            messageLabel.setText(error); // Prikazuje grešku (npr. korisničko ime je zauzeto)
         }
     }
 
+    // POMOĆNA METODA: Skuplja označene JCheckBox komponente i spaja ih u jedan String
     private String buildInterests() {
         StringBuilder sb = new StringBuilder();
         if (casualBox.isSelected()) {
@@ -196,6 +204,7 @@ public class RegisterPanel extends JPanel implements Screen {
         return ScreenNames.REGISTER;
     }
 
+    // RESETIRANJE STANJA: Automatski prazni sva polja i vraća ih na default pri prikazu ekrana
     @Override
     public void onShow() {
         usernameField.setText("");

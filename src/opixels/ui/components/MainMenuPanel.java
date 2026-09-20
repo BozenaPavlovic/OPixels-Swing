@@ -15,8 +15,10 @@ import java.awt.GridLayout;
 
 public class MainMenuPanel extends JPanel implements Screen {
 
+    // Konstanta za uniformnu dimenziju svih gumba u izborniku
     private static final Dimension BUTTON_SIZE = new Dimension(220, 40);
 
+    // Pohrana reference na MainFrame radi navigacije
     private final MainFrame mainFrame;
 
     public MainMenuPanel(MainFrame mainFrame) {
@@ -27,12 +29,14 @@ public class MainMenuPanel extends JPanel implements Screen {
         JLabel titleLabel = new JLabel("ODABERI IGRU", JLabel.CENTER);
         header.add(titleLabel, BorderLayout.CENTER);
 
+        // Grid (4,1) slaže gumbove za igru vertikalno jedan ispod drugog
         JPanel grid = new JPanel(new GridLayout(4, 1, 0, 12));
         grid.add(createNavButton("Flip Coin", ScreenNames.FLIP_COIN));
         grid.add(createNavButton("Speed Clicker", ScreenNames.SPEED_CLICKER));
         grid.add(createNavButton("Rock Paper Scissors", ScreenNames.ROCK_PAPER_SCISSORS));
         grid.add(createNavButton("Guess the Number", ScreenNames.GUESS_NUMBER));
 
+        // GridBagLayout služi samo kao omotč (wrapper) koji drži grid gumba u samom centru ekrana
         JPanel gridWrapper = new JPanel(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.gridx = 0;
@@ -44,10 +48,12 @@ public class MainMenuPanel extends JPanel implements Screen {
         add(gridWrapper, BorderLayout.CENTER);
     }
 
+    // POMOĆNA METODA (DRY princip): Tvornica za stvaranje uniformnih gumba za navigaciju
     private JButton createNavButton(String text, String screen) {
         JButton button = new JButton(text);
         button.setPreferredSize(BUTTON_SIZE);
         button.setMaximumSize(BUTTON_SIZE);
+        // BEZUVJETNA NAVIGACIJA: Klikom se odmah šalje zahtjev MainFrame-u za prebacivanje ekrana igre
         button.addActionListener(e -> mainFrame.showScreen(screen));
         return button;
     }
@@ -57,6 +63,7 @@ public class MainMenuPanel extends JPanel implements Screen {
         return ScreenNames.MAIN_MENU;
     }
 
+    // Budući da nema polja za unos niti stanja koje treba resetirati, metoda ostaje prazna
     @Override
     public void onShow() {
     }
