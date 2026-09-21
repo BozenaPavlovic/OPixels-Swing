@@ -71,6 +71,7 @@ public class MainFrame extends JFrame implements ToolBarListener {
         appToolBar.setVisible(!authScreen);
 
         updateUserInfo();
+        updateStatusText(screenName);
 
         cardLayout.show(contentPanel, screenName);
 
@@ -79,6 +80,22 @@ public class MainFrame extends JFrame implements ToolBarListener {
                 screen.onShow();
                 break;
             }
+        }
+    }
+
+    private void updateStatusText(String screenName) {
+        if (screenName == null) return;
+
+        if (screenName.equals(ScreenNames.FLIP_COIN)) {
+            appToolBar.setStatusText("Status: U igri - Flip Coin");
+        } else if (screenName.equals(ScreenNames.GUESS_NUMBER)) {
+            appToolBar.setStatusText("Status: U igri - Guess Number");
+        } else if (screenName.equals(ScreenNames.ROCK_PAPER_SCISSORS)) {
+            appToolBar.setStatusText("Status: U igri - Rock Paper Scissors");
+        } else if (screenName.equals(ScreenNames.SPEED_CLICKER)) {
+            appToolBar.setStatusText("Status: U igri - Speed Clicker");
+        } else {
+            appToolBar.setStatusText("Status: Slobodan");
         }
     }
 
@@ -94,5 +111,4 @@ public class MainFrame extends JFrame implements ToolBarListener {
         dataManager.logout();
         showScreen(ScreenNames.LOGIN);
     }
-
 }
