@@ -163,4 +163,13 @@ public class DataManager {
         globalStats.recordGuessNumber(win);
         saveAll();
     }
+    public void resetFlipCoinForCurrentUser() {
+        UserStats stats = getCurrentUserStats();
+        if (stats == null) {
+            return;
+        }
+        stats.resetFlipCoin();       // ← metoda koju dodajemo u UserStats
+        //globalStats.resetFlipCoin(); // ← vidi napomenu ispod
+        saveAll();                   // ← već imaš ovu metodu
+    }
 }

@@ -34,6 +34,18 @@ public class FlipCoinPanel extends JPanel implements Screen, FlipCoinListener {
         totalAttempts = 0;
         wins = 0;
     }
+    @Override
+    public void onResetSubmitted() {
+        // prema gore — gornje klase i mape
+        mainFrame.getDataManager().resetFlipCoinForCurrentUser();
+
+        // lokalno
+        totalAttempts = 0;
+        wins = 0;
+
+        // prema dolje — GUI
+        rightPanel.reset(totalAttempts, wins);
+    }
 
     @Override
     public void onChoiceSubmitted(FlipCoinEvent event) {

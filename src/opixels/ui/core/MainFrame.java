@@ -94,4 +94,5 @@ public class MainFrame extends JFrame implements ToolBarListener {
         dataManager.logout();
         showScreen(ScreenNames.LOGIN);
     }
+
 }

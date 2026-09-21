@@ -93,6 +93,17 @@ public class UserStats implements Serializable {
             playHistory.add("Guess the Number - Poraz");
         }
     }
+    public void resetFlipCoin() {
+        totalGames   -= flipCoinGames;
+        totalWins    -= flipCoinWins;
+        totalLosses  -= flipCoinLosses;
+
+        flipCoinGames  = 0;
+        flipCoinWins   = 0;
+        flipCoinLosses = 0;
+
+        playHistory.removeIf(entry -> entry.startsWith("Flip Coin"));
+    }
 
     public String formatStats() {
         StringBuilder sb = new StringBuilder();

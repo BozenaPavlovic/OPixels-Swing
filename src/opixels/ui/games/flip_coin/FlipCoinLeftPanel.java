@@ -13,11 +13,13 @@ public class FlipCoinLeftPanel extends JPanel {
     private FlipCoinListener listener;
 
     public FlipCoinLeftPanel() {
-        setLayout(new GridLayout(5, 1, 0, 10));
-        
+        setLayout(new GridLayout(6, 1, 0, 10));
+
         add(new JLabel("Flip Coin"));
         add(createChoiceButton("Glava", "Glava"));
         add(createChoiceButton("Pismo", "Pismo"));
+        add(new JLabel(" "));
+        add(createResetButton());          // ← novi gumb
         add(new JLabel(" "));
     }
 
@@ -27,6 +29,16 @@ public class FlipCoinLeftPanel extends JPanel {
         button.addActionListener(e -> {
             if (listener != null) {
                 listener.onChoiceSubmitted(new FlipCoinEvent(choice));
+            }
+        });
+        return button;
+    }
+    private JButton createResetButton() {
+        JButton button = new JButton("Reset Stats");
+        button.setPreferredSize(BUTTON_SIZE);
+        button.addActionListener(e -> {
+            if (listener != null) {
+                listener.onResetSubmitted();   // → ide u FlipCoinPanel
             }
         });
         return button;
